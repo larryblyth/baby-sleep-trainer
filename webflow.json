@@ -1,0 +1,6 @@
+{
+  "name": "baby-sleep-trainer",
+  "framework": "nextjs",
+  "mount": "/app"
+}
+
