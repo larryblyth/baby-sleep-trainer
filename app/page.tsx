@@ -10,7 +10,7 @@ export default function Home() {
   const [messageKey, setMessageKey] = useState(0)
   const [inspirationalMessage, setInspirationalMessage] = useState('Sleep training is one of the hardest things parents do. You\'re not alone. 🤗')
   const [isLoadingMessage, setIsLoadingMessage] = useState(false)
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const lastGeneratedContext = useRef<string>('')
   const lastPeriodicMessageTime = useRef<number>(0)
 
@@ -139,7 +139,7 @@ export default function Home() {
       return Math.random() * (max - min) + min
     }
 
-    const interval: NodeJS.Timeout = setInterval(function() {
+    const interval: ReturnType<typeof setInterval> = setInterval(function() {
       const timeLeft = animationEnd - Date.now()
 
       if (timeLeft <= 0) {
@@ -321,4 +321,3 @@ export default function Home() {
     </main>
   )
 }
-

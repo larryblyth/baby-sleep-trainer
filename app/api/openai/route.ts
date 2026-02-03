@@ -74,7 +74,7 @@ Use emojis sparingly (1-2 max) to add warmth without being excessive.`
 
     // Generate inspirational message using OpenAI
     const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
@@ -104,4 +104,3 @@ Use emojis sparingly (1-2 max) to add warmth without being excessive.`
     )
   }
 }
-
