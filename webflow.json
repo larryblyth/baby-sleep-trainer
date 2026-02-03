@@ -1,5 +1,4 @@
 {
-  "name": "baby-sleep-trainer",
   "cosmic": {
     "framework": "nextjs",
     "mount": "/app"
