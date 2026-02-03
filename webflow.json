@@ -1,8 +1,8 @@
 {
   "name": "baby-sleep-trainer",
-  "framework": "nextjs",
-  "mount": "/app",
-  "buildCommand": "npm run build",
-  "outputDirectory": ".next"
+  "cosmic": {
+    "framework": "nextjs",
+    "mount": "/app"
+  }
 }
 
