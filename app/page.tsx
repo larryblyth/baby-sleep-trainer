@@ -12,6 +12,7 @@ export default function Home() {
   const [isLoadingMessage, setIsLoadingMessage] = useState(false)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const lastGeneratedContext = useRef<string>('')
+  const lastPeriodicMessageTime = useRef<number>(0)
 
   // Generate inspirational message from OpenAI
   const generateMessage = useCallback(async (action: string, currentTime: number, running: boolean) => {
@@ -84,17 +85,26 @@ export default function Home() {
     generateMessage('idle', 0, false)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Generate message when action changes
+  // Generate message when action changes (only when action actually changes, not on every time update)
   useEffect(() => {
     if (lastAction !== 'idle') {
       generateMessage(lastAction, time, isRunning)
+      // Reset periodic message time when action changes
+      lastPeriodicMessageTime.current = 0
     }
-  }, [lastAction, generateMessage, time, isRunning])
+  }, [lastAction, generateMessage, isRunning]) // Removed 'time' from dependencies
 
   // Periodically update message while timer is running (every 30 seconds)
   useEffect(() => {
-    if (isRunning && time > 0 && time % 30 === 0) {
-      generateMessage('running', time, isRunning)
+    if (isRunning && time > 0) {
+      const currentInterval = Math.floor(time / 30)
+      const lastInterval = Math.floor(lastPeriodicMessageTime.current / 30)
+      
+      // Only generate if we've moved to a new 30-second interval
+      if (currentInterval > lastInterval && currentInterval > 0) {
+        lastPeriodicMessageTime.current = time
+        generateMessage('running', time, isRunning)
+      }
     }
   }, [time, isRunning, generateMessage])
 
@@ -116,6 +126,7 @@ export default function Home() {
     setLastAction('reset')
     setMessageKey(prev => prev + 1)
     lastGeneratedContext.current = '' // Reset context to allow new message
+    lastPeriodicMessageTime.current = 0 // Reset periodic message tracking
   }
 
   const handleBabyAsleep = () => {
