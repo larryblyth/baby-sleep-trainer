@@ -1,6 +1,5 @@
 {
-  "cosmic": {
-    "framework": "next"
+  "cloud": {
+    "framework": "nextjs"
   }
 }
-
