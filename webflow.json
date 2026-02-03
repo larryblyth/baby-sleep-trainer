@@ -1,5 +1,6 @@
 {
-  "cloud": {
-    "framework": "nextjs"
+  "cosmic": {
+    "framework": "nextjs",
+    "mount": "/app"
   }
 }
